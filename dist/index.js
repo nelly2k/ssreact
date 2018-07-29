@@ -139,22 +139,50 @@ app.listen(PORT, function () { return console.log('######## app running ########
 
 "use strict";
 
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "react");
 var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "react-router-dom");
 var routes_1 = __webpack_require__(/*! ../routes */ "./src/routes.tsx");
-exports.Hello = function (props) { return React.createElement("div", null,
-    React.createElement("h1", null,
-        "Hello, ",
-        props.name,
-        "!"),
-    React.createElement("ul", null,
-        React.createElement("li", null,
-            React.createElement(react_router_dom_1.Link, { to: "/" }, "Page 1")),
-        React.createElement("li", null,
-            React.createElement(react_router_dom_1.Link, { to: "/page2" }, "Page 2"))),
-    React.createElement("hr", null),
-    React.createElement(routes_1.Routes, null)); };
+var react_redux_1 = __webpack_require__(/*! react-redux */ "react-redux");
+var redux_1 = __webpack_require__(/*! redux */ "redux");
+var allReducers_1 = __webpack_require__(/*! ../state/allReducers */ "./src/state/allReducers.ts");
+var Hello = /** @class */ (function (_super) {
+    __extends(Hello, _super);
+    function Hello() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.store = redux_1.createStore(allReducers_1.default);
+        return _this;
+    }
+    Hello.prototype.render = function () {
+        return React.createElement("div", null,
+            React.createElement("h1", null,
+                "Hello, ",
+                this.props.name,
+                "!"),
+            React.createElement("ul", null,
+                React.createElement("li", null,
+                    React.createElement(react_router_dom_1.Link, { to: "/" }, "Page 1")),
+                React.createElement("li", null,
+                    React.createElement(react_router_dom_1.Link, { to: "/page2" }, "Page 2")),
+                React.createElement("li", null,
+                    React.createElement(react_router_dom_1.Link, { to: "/page3" }, "Page 3"))),
+            React.createElement("hr", null),
+            React.createElement(react_redux_1.Provider, { store: this.store },
+                React.createElement(routes_1.Routes, null)));
+    };
+    return Hello;
+}(React.Component));
+exports.Hello = Hello;
 
 
 /***/ }),
@@ -176,6 +204,47 @@ exports.Page2 = function () { return React.createElement("div", null, "I'm page 
 
 /***/ }),
 
+/***/ "./src/public/page3.tsx":
+/*!******************************!*\
+  !*** ./src/public/page3.tsx ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "react");
+var story_1 = __webpack_require__(/*! ../state/story */ "./src/state/story.ts");
+var react_redux_1 = __webpack_require__(/*! react-redux */ "react-redux");
+var Page3 = /** @class */ (function (_super) {
+    __extends(Page3, _super);
+    function Page3() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Page3.prototype.render = function () {
+        return React.createElement("div", null,
+            React.createElement("h3", null, "I'm page 3"),
+            React.createElement("button", { onClick: this.props.search }, "Search"),
+            React.createElement("ul", null, this.props.stories && this.props.stories.map(function (x) { return React.createElement("li", null, x.id); })));
+    };
+    return Page3;
+}(React.Component));
+exports.default = react_redux_1.connect(function (state) { return state; }, story_1.actionCreators)(Page3);
+
+
+/***/ }),
+
 /***/ "./src/routes.tsx":
 /*!************************!*\
   !*** ./src/routes.tsx ***!
@@ -189,9 +258,64 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "react");
 var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "react-router-dom");
 var page1_1 = __webpack_require__(/*! ./public/page1 */ "./src/public/page1.tsx");
+var page3_1 = __webpack_require__(/*! ./public/page3 */ "./src/public/page3.tsx");
 exports.Routes = function () { return React.createElement("div", null,
     React.createElement(react_router_dom_1.Route, { exact: true, path: "/", component: page1_1.Page1 }),
-    React.createElement(react_router_dom_1.Route, { exact: true, path: "/page2", component: page1_1.Page2 })); };
+    React.createElement(react_router_dom_1.Route, { exact: true, path: "/page2", component: page1_1.Page2 }),
+    React.createElement(react_router_dom_1.Route, { exact: true, path: "/page3", component: page3_1.default })); };
+
+
+/***/ }),
+
+/***/ "./src/state/allReducers.ts":
+/*!**********************************!*\
+  !*** ./src/state/allReducers.ts ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var redux_1 = __webpack_require__(/*! redux */ "redux");
+var story_1 = __webpack_require__(/*! ./story */ "./src/state/story.ts");
+exports.default = redux_1.combineReducers({ reducer: story_1.reducer });
+
+
+/***/ }),
+
+/***/ "./src/state/story.ts":
+/*!****************************!*\
+  !*** ./src/state/story.ts ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var defaultState = {
+    stories: []
+};
+exports.actionCreators = {
+    search: function () { return function (dispatch) {
+        dispatch({ type: "SEARCH" });
+        var story = {
+            id: "storyId"
+        };
+        dispatch({ type: "SEARCH_SUCCESS", stories: [story] });
+    }; }
+};
+exports.reducer = function (state, action) {
+    var myAction = action;
+    switch (myAction.type) {
+        case "SEARCH":
+            return { stories: state.stories };
+        case "SEARCH_SUCCESS":
+            return { stories: action.stories };
+        default: return defaultState;
+    }
+};
 
 
 /***/ }),
@@ -240,6 +364,17 @@ module.exports = require("react-dom/server");
 
 /***/ }),
 
+/***/ "react-redux":
+/*!******************************!*\
+  !*** external "react-redux" ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("react-redux");
+
+/***/ }),
+
 /***/ "react-router-dom":
 /*!***********************************!*\
   !*** external "react-router-dom" ***!
@@ -248,6 +383,17 @@ module.exports = require("react-dom/server");
 /***/ (function(module, exports) {
 
 module.exports = require("react-router-dom");
+
+/***/ }),
+
+/***/ "redux":
+/*!************************!*\
+  !*** external "redux" ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("redux");
 
 /***/ })
 
