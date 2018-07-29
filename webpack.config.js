@@ -21,17 +21,13 @@ const ts ={ test: /\.tsx?$/, exclude: /node_modules/, loader: "awesome-typescrip
 
 const serverConfig = {
   mode: 'development',
-  watch: true,
   target: 'node',
   node: {
     __dirname: false
   },
-  externals: [nodeExternals({
-    whitelist: ['webpack/hot/poll?1000']
-})],
+  externals: [nodeExternals()],
   entry: {
-    'index': path.resolve(__dirname, 'src/index.tsx'),
-    "hot":'webpack/hot/poll?1000'
+    'index': path.resolve(__dirname, 'src/index.tsx')
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".json"]
@@ -43,24 +39,11 @@ const serverConfig = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].js'
-  },
-  plugins: [
-    new StartServerPlugin('index.js'),
-    
-    new webpack.HotModuleReplacementPlugin(),
-    
-    new webpack.DefinePlugin({
-        "process.env": {
-            "BUILD_TARGET": JSON.stringify('server')
-        }
-    }),
-]
+  }
 }
-
 
 const clientConfig = {
     mode: 'development',
-    watch: true,
     target: 'web',
     entry: {
       'home': path.resolve(__dirname, 'src/public/home.tsx')

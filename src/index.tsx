@@ -38,7 +38,7 @@ app.get('/*', (req, res) => {
   } else {
     res.send(html)
   }
-})
+});
 
 app.get('*', ({}, res) =>
   res
@@ -46,13 +46,7 @@ app.get('*', ({}, res) =>
     .send(
       `<body style="background-color: #3c3c3c;"><h1 style="font-family: sans-serif; color: #c7c7c7; text-align: center;">404 - Not Found</h1></body>`
     )
-)
+);
 const { PORT = 3000 } = process.env
+console.log(`We are starting on port: ${PORT}`);
 app.listen(PORT, () => console.log('######## app running ########'))
- 
-
-if (module.hot){ 
-  module.hot.accept("*", ()=>{
-    console.log("hot!");
-  })
-}

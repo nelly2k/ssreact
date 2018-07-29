@@ -24355,7 +24355,7 @@ ReactDOM.hydrate(React.createElement(react_router_dom_1.BrowserRouter, null,
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 exports.Page1 = function () { return React.createElement("div", null, "I'm page 1"); };
-exports.Page2 = function () { return React.createElement("div", null, "I'm page 2"); };
+exports.Page2 = function () { return React.createElement("div", null, "I'm page 23"); };
 
 
 /***/ }),
