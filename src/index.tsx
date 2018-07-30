@@ -8,7 +8,7 @@ import { StaticRouterContext } from 'react-router';
 import { configureStore } from './state/configureStore';
 import createMemoryHistory from 'history/createMemoryHistory';
 import { Provider } from 'react-redux';
-import * as StoryModule from "./state/story";
+import {StoryRepo} from "./repo/story.repo";
 
 const app: Express.Application = Express();
 
@@ -17,16 +17,15 @@ app.use('/static', Express.static(path.resolve(__dirname, 'public')))
 app.get('/*', async (req, res) => {
   const name = 'Marvelous Wololo1'
   const context: StaticRouterContext = {};
-  const store = configureStore(createMemoryHistory(),{story:{stories:[]}});
-  
-  
-  var d = StoryModule.actionCreators.search();
-  
-  d((action:any):void=>{
-    console.log(`dispatched ${action.type}`);
-  });
-  console.log(`Url: ${req.url}`);
 
+  let stories = [];
+  if (req.url == "/page3"){
+    stories = await StoryRepo.GetStories();
+    console.log(`stories: ${stories.length}`)
+  }
+  
+  const store = configureStore(createMemoryHistory(),{story:{stories:stories}});
+   
   const component = ReactDOMServer.renderToString(
     <Router location={req.url} context={context}>
       <Provider store={store}>
@@ -39,7 +38,7 @@ app.get('/*', async (req, res) => {
   <!doctype html>
     <html>
     <head>
-      <link rel='shortcut icon' type='image/x-icon' href='/static/favicon.ico' />
+      
       <script>window.__INITIAL__DATA__ = ${JSON.stringify({ name })}</script>
     </head>
     <body>

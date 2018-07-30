@@ -1,7 +1,6 @@
-export type Story={
-    id:string;
-    title:string;
-}
+import {StoryRepo} from "../repo/story.repo";
+import {Story} from "../model/story";
+
 export interface State{
     stories:Story[]
 }
@@ -22,17 +21,13 @@ const defaultState:State = {
 
 type KnownActions = SearchAction | SearchActionSuccess;
 
-const get =async <T> (url:string): Promise<T> =>{
-    const task = fetch(url);
-    var response = await task;
-    return response.json() as Promise<T>;
-}
+
 
 
 export const actionCreators = {
     search: ():  AppThunkAction <KnownActions>=> async (dispatch) => {
         dispatch({type: "SEARCH"});
-        var stories = await get<Story[]>("https://localhost:9000/api/Stories");
+        var stories = await StoryRepo.GetStories();
         dispatch({type: "SEARCH_SUCCESS", stories: stories});
     }
 }
