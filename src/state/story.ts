@@ -45,6 +45,7 @@ export const reducer  = (state:State, action:any):State=>{
         case "SEARCH":
             return {stories:state.stories};
         case "SEARCH_SUCCESS":
+            console.log("story is here");
             return {stories:action.stories};
         default:return defaultState;
     }

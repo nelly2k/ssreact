@@ -5,6 +5,9 @@ import * as ReactDOMServer from 'react-dom/server'
 import { Hello } from './public/hello'
 import { StaticRouter as Router } from 'react-router-dom';
 import { StaticRouterContext } from 'react-router';
+import { configureStore } from './state/configureStore';
+import createMemoryHistory from 'history/createMemoryHistory';
+import { Provider } from 'react-redux';
 import * as StoryModule from "./state/story";
 
 const app: Express.Application = Express();
@@ -14,13 +17,22 @@ app.use('/static', Express.static(path.resolve(__dirname, 'public')))
 app.get('/*', async (req, res) => {
   const name = 'Marvelous Wololo1'
   const context: StaticRouterContext = {};
-
-  if (req.url == "/page3"){
-    await StoryModule.actionCreators.search();
-  }
+  const store = configureStore(createMemoryHistory(),{story:{stories:[]}});
+  
+  
+  var d = StoryModule.actionCreators.search();
+  
+  d((action:any):void=>{
+    console.log(`dispatched ${action.type}`);
+  });
   console.log(`Url: ${req.url}`);
+
   const component = ReactDOMServer.renderToString(
-    <Router location={req.url} context={context}><Hello name={name} /></Router>
+    <Router location={req.url} context={context}>
+      <Provider store={store}>
+        <Hello name={name} />
+      </Provider>
+    </Router>
   )
 
   const html = `
