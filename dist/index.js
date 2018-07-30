@@ -94,39 +94,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var Express = __webpack_require__(/*! express */ "express");
-var path = __webpack_require__(/*! path */ "path");
-var React = __webpack_require__(/*! react */ "react");
-var ReactDOMServer = __webpack_require__(/*! react-dom/server */ "react-dom/server");
-var hello_1 = __webpack_require__(/*! ./public/hello */ "./src/public/hello.tsx");
-var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "react-router-dom");
-var app = Express();
-app.use('/static', Express.static(path.resolve(__dirname, 'public')));
-app.get('/*', function (req, res) {
-    var name = 'Marvelous Wololo1';
-    var context = {};
-    var component = ReactDOMServer.renderToString(React.createElement(react_router_dom_1.StaticRouter, { location: req.url, context: context },
-        React.createElement(hello_1.Hello, { name: name })));
-    var html = "\n  <!doctype html>\n    <html>\n    <head>\n      <link rel='shortcut icon' type='image/x-icon' href='/static/favicon.ico' />\n      <script>window.__INITIAL__DATA__ = " + JSON.stringify({ name: name }) + "</script>\n    </head>\n    <body>\n      <div id=\"root\">" + component + "</div>\n      <script src=\"/static/home.js\"></script>\n    </body>\n    </html>\n  ";
-    if (context.url) {
-        res.writeHead(301, { Location: context.url });
-        res.end();
-    }
-    else {
-        res.send(html);
-    }
-});
-app.get('*', function (_a, res) {
-    return res
-        .status(404)
-        .send("<body style=\"background-color: #3c3c3c;\"><h1 style=\"font-family: sans-serif; color: #c7c7c7; text-align: center;\">404 - Not Found</h1></body>");
-});
-var _a = process.env.PORT, PORT = _a === void 0 ? 3000 : _a;
-console.log("We are starting on port: " + PORT);
-app.listen(PORT, function () { return console.log('######## app running ########'); });
-
+eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar Express = __webpack_require__(/*! express */ \"express\");\r\nvar path = __webpack_require__(/*! path */ \"path\");\r\nvar React = __webpack_require__(/*! react */ \"react\");\r\nvar ReactDOMServer = __webpack_require__(/*! react-dom/server */ \"react-dom/server\");\r\nvar hello_1 = __webpack_require__(/*! ./public/hello */ \"./src/public/hello.tsx\");\r\nvar react_router_dom_1 = __webpack_require__(/*! react-router-dom */ \"react-router-dom\");\r\nvar app = Express();\r\napp.use('/static', Express.static(path.resolve(__dirname, 'public')));\r\napp.get('/*', function (req, res) {\r\n    var name = 'Marvelous Wololo1';\r\n    var context = {};\r\n    var component = ReactDOMServer.renderToString(React.createElement(react_router_dom_1.StaticRouter, { location: req.url, context: context },\r\n        React.createElement(hello_1.Hello, { name: name })));\r\n    var html = \"\\n  <!doctype html>\\n    <html>\\n    <head>\\n      <link rel='shortcut icon' type='image/x-icon' href='/static/favicon.ico' />\\n      <script>window.__INITIAL__DATA__ = \" + JSON.stringify({ name: name }) + \"</script>\\n    </head>\\n    <body>\\n      <div id=\\\"root\\\">\" + component + \"</div>\\n      <script src=\\\"/static/home.js\\\"></script>\\n    </body>\\n    </html>\\n  \";\r\n    if (context.url) {\r\n        res.writeHead(301, { Location: context.url });\r\n        res.end();\r\n    }\r\n    else {\r\n        res.send(html);\r\n    }\r\n});\r\napp.get('*', function (_a, res) {\r\n    return res\r\n        .status(404)\r\n        .send(\"<body style=\\\"background-color: #3c3c3c;\\\"><h1 style=\\\"font-family: sans-serif; color: #c7c7c7; text-align: center;\\\">404 - Not Found</h1></body>\");\r\n});\r\nvar _a = process.env.PORT, PORT = _a === void 0 ? 3000 : _a;\r\nconsole.log(\"We are starting on port: \" + PORT);\r\napp.listen(PORT, function () { return console.log('######## app running ########'); });\r\n\n\n//# sourceURL=webpack:///./src/index.tsx?");
 
 /***/ }),
 
@@ -138,52 +106,7 @@ app.listen(PORT, function () { return console.log('######## app running ########
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(/*! react */ "react");
-var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "react-router-dom");
-var routes_1 = __webpack_require__(/*! ../routes */ "./src/routes.tsx");
-var react_redux_1 = __webpack_require__(/*! react-redux */ "react-redux");
-var redux_1 = __webpack_require__(/*! redux */ "redux");
-var allReducers_1 = __webpack_require__(/*! ../state/allReducers */ "./src/state/allReducers.ts");
-var Hello = /** @class */ (function (_super) {
-    __extends(Hello, _super);
-    function Hello() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.store = redux_1.createStore(allReducers_1.default);
-        return _this;
-    }
-    Hello.prototype.render = function () {
-        return React.createElement("div", null,
-            React.createElement("h1", null,
-                "Hello, ",
-                this.props.name,
-                "!"),
-            React.createElement("ul", null,
-                React.createElement("li", null,
-                    React.createElement(react_router_dom_1.Link, { to: "/" }, "Page 1")),
-                React.createElement("li", null,
-                    React.createElement(react_router_dom_1.Link, { to: "/page2" }, "Page 2")),
-                React.createElement("li", null,
-                    React.createElement(react_router_dom_1.Link, { to: "/page3" }, "Page 3"))),
-            React.createElement("hr", null),
-            React.createElement(react_redux_1.Provider, { store: this.store },
-                React.createElement(routes_1.Routes, null)));
-    };
-    return Hello;
-}(React.Component));
-exports.Hello = Hello;
-
+eval("\r\nvar __extends = (this && this.__extends) || (function () {\r\n    var extendStatics = Object.setPrototypeOf ||\r\n        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\r\n        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };\r\n    return function (d, b) {\r\n        extendStatics(d, b);\r\n        function __() { this.constructor = d; }\r\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\r\n    };\r\n})();\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar React = __webpack_require__(/*! react */ \"react\");\r\nvar react_router_dom_1 = __webpack_require__(/*! react-router-dom */ \"react-router-dom\");\r\nvar routes_1 = __webpack_require__(/*! ../routes */ \"./src/routes.tsx\");\r\nvar react_redux_1 = __webpack_require__(/*! react-redux */ \"react-redux\");\r\nvar redux_1 = __webpack_require__(/*! redux */ \"redux\");\r\nvar history_1 = __webpack_require__(/*! history */ \"history\");\r\n// const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href')!;\r\n// const history = createBrowserHistory({ basename: baseUrl });\r\nvar Hello = /** @class */ (function (_super) {\r\n    __extends(Hello, _super);\r\n    function Hello() {\r\n        var _this = _super !== null && _super.apply(this, arguments) || this;\r\n        _this.store = configureStore(history_1.createMemoryHistory(), { story: { stories: [] } });\r\n        return _this;\r\n    }\r\n    Hello.prototype.render = function () {\r\n        return React.createElement(\"div\", null,\r\n            React.createElement(\"h1\", null,\r\n                \"Hello, \",\r\n                this.props.name,\r\n                \"!\"),\r\n            React.createElement(\"ul\", null,\r\n                React.createElement(\"li\", null,\r\n                    React.createElement(react_router_dom_1.Link, { to: \"/\" }, \"Page 1\")),\r\n                React.createElement(\"li\", null,\r\n                    React.createElement(react_router_dom_1.Link, { to: \"/page2\" }, \"Page 2\")),\r\n                React.createElement(\"li\", null,\r\n                    React.createElement(react_router_dom_1.Link, { to: \"/page3\" }, \"Page 3\"))),\r\n            React.createElement(\"hr\", null),\r\n            React.createElement(react_redux_1.Provider, { store: this.store },\r\n                React.createElement(routes_1.Routes, null)));\r\n    };\r\n    return Hello;\r\n}(React.Component));\r\nexports.Hello = Hello;\r\nvar redux_thunk_1 = __webpack_require__(/*! redux-thunk */ \"redux-thunk\");\r\nvar react_router_redux_1 = __webpack_require__(/*! react-router-redux */ \"react-router-redux\");\r\nvar store_1 = __webpack_require__(/*! ../state/store */ \"./src/state/store.tsx\");\r\nfunction configureStore(history, initialState) {\r\n    // const windowIfDefined = typeof window === 'undefined' ? null : window as any;\r\n    // If devTools is installed, connect to it\r\n    // const devToolsExtension = windowIfDefined && windowIfDefined.__REDUX_DEVTOOLS_EXTENSION__ as () => StoreEnhancer;\r\n    var createStoreWithMiddleware = redux_1.compose(redux_1.applyMiddleware(redux_thunk_1.default, react_router_redux_1.routerMiddleware(history)))(redux_1.createStore);\r\n    // Combine all reducers and instantiate the app-wide store instance\r\n    var allReducers = buildRootReducer(store_1.reducers);\r\n    var store = createStoreWithMiddleware(allReducers, initialState);\r\n    return store;\r\n}\r\nfunction buildRootReducer(allReducers) {\r\n    return redux_1.combineReducers(Object.assign({}, allReducers, { routing: react_router_redux_1.routerReducer }));\r\n}\r\n\n\n//# sourceURL=webpack:///./src/public/hello.tsx?");
 
 /***/ }),
 
@@ -195,12 +118,7 @@ exports.Hello = Hello;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(/*! react */ "react");
-exports.Page1 = function () { return React.createElement("div", null, "I'm page 1"); };
-exports.Page2 = function () { return React.createElement("div", null, "I'm page 23"); };
-
+eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar React = __webpack_require__(/*! react */ \"react\");\r\nexports.Page1 = function () { return React.createElement(\"div\", null, \"I'm page 1\"); };\r\nexports.Page2 = function () { return React.createElement(\"div\", null, \"I'm page 23\"); };\r\n\n\n//# sourceURL=webpack:///./src/public/page1.tsx?");
 
 /***/ }),
 
@@ -212,36 +130,7 @@ exports.Page2 = function () { return React.createElement("div", null, "I'm page 
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(/*! react */ "react");
-var story_1 = __webpack_require__(/*! ../state/story */ "./src/state/story.ts");
-var react_redux_1 = __webpack_require__(/*! react-redux */ "react-redux");
-var Page3 = /** @class */ (function (_super) {
-    __extends(Page3, _super);
-    function Page3() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    Page3.prototype.render = function () {
-        return React.createElement("div", null,
-            React.createElement("h3", null, "I'm page 3"),
-            React.createElement("button", { onClick: this.props.search }, "Search"),
-            React.createElement("ul", null, this.props.stories && this.props.stories.map(function (x) { return React.createElement("li", null, x.id); })));
-    };
-    return Page3;
-}(React.Component));
-exports.default = react_redux_1.connect(function (state) { return state; }, story_1.actionCreators)(Page3);
-
+eval("\r\nvar __extends = (this && this.__extends) || (function () {\r\n    var extendStatics = Object.setPrototypeOf ||\r\n        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\r\n        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };\r\n    return function (d, b) {\r\n        extendStatics(d, b);\r\n        function __() { this.constructor = d; }\r\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\r\n    };\r\n})();\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar React = __webpack_require__(/*! react */ \"react\");\r\nvar story_1 = __webpack_require__(/*! ../state/story */ \"./src/state/story.ts\");\r\nvar react_redux_1 = __webpack_require__(/*! react-redux */ \"react-redux\");\r\nvar Page3 = /** @class */ (function (_super) {\r\n    __extends(Page3, _super);\r\n    function Page3() {\r\n        return _super !== null && _super.apply(this, arguments) || this;\r\n    }\r\n    Page3.prototype.render = function () {\r\n        return React.createElement(\"div\", null,\r\n            React.createElement(\"h3\", null, \"I'm page 3\"),\r\n            React.createElement(\"button\", { onClick: this.props.search }, \"Search\"),\r\n            React.createElement(\"ul\", null, this.props.stories && this.props.stories.map(function (x) { return React.createElement(\"li\", null, x.id); })));\r\n    };\r\n    return Page3;\r\n}(React.Component));\r\nexports.default = react_redux_1.connect(function (state) { return state.story; }, story_1.actionCreators)(Page3);\r\n\n\n//# sourceURL=webpack:///./src/public/page3.tsx?");
 
 /***/ }),
 
@@ -253,34 +142,19 @@ exports.default = react_redux_1.connect(function (state) { return state; }, stor
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(/*! react */ "react");
-var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "react-router-dom");
-var page1_1 = __webpack_require__(/*! ./public/page1 */ "./src/public/page1.tsx");
-var page3_1 = __webpack_require__(/*! ./public/page3 */ "./src/public/page3.tsx");
-exports.Routes = function () { return React.createElement("div", null,
-    React.createElement(react_router_dom_1.Route, { exact: true, path: "/", component: page1_1.Page1 }),
-    React.createElement(react_router_dom_1.Route, { exact: true, path: "/page2", component: page1_1.Page2 }),
-    React.createElement(react_router_dom_1.Route, { exact: true, path: "/page3", component: page3_1.default })); };
-
+eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar React = __webpack_require__(/*! react */ \"react\");\r\nvar react_router_dom_1 = __webpack_require__(/*! react-router-dom */ \"react-router-dom\");\r\nvar page1_1 = __webpack_require__(/*! ./public/page1 */ \"./src/public/page1.tsx\");\r\nvar page3_1 = __webpack_require__(/*! ./public/page3 */ \"./src/public/page3.tsx\");\r\nexports.Routes = function () { return React.createElement(\"div\", null,\r\n    React.createElement(react_router_dom_1.Route, { exact: true, path: \"/\", component: page1_1.Page1 }),\r\n    React.createElement(react_router_dom_1.Route, { exact: true, path: \"/page2\", component: page1_1.Page2 }),\r\n    React.createElement(react_router_dom_1.Route, { exact: true, path: \"/page3\", component: page3_1.default })); };\r\n\n\n//# sourceURL=webpack:///./src/routes.tsx?");
 
 /***/ }),
 
-/***/ "./src/state/allReducers.ts":
-/*!**********************************!*\
-  !*** ./src/state/allReducers.ts ***!
-  \**********************************/
+/***/ "./src/state/store.tsx":
+/*!*****************************!*\
+  !*** ./src/state/store.tsx ***!
+  \*****************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var redux_1 = __webpack_require__(/*! redux */ "redux");
-var story_1 = __webpack_require__(/*! ./story */ "./src/state/story.ts");
-exports.default = redux_1.combineReducers({ reducer: story_1.reducer });
-
+eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar StoryStore = __webpack_require__(/*! ./story */ \"./src/state/story.ts\");\r\n// Whenever an action is dispatched, Redux will update each top-level application state property using\r\n// the reducer with the matching name. It's important that the names match exactly, and that the reducer\r\n// acts on the corresponding ApplicationState property type.\r\nexports.reducers = {\r\n    story: StoryStore.reducer,\r\n};\r\n\n\n//# sourceURL=webpack:///./src/state/store.tsx?");
 
 /***/ }),
 
@@ -292,31 +166,7 @@ exports.default = redux_1.combineReducers({ reducer: story_1.reducer });
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var defaultState = {
-    stories: []
-};
-exports.actionCreators = {
-    search: function () { return function (dispatch) {
-        dispatch({ type: "SEARCH" });
-        var story = {
-            id: "storyId"
-        };
-        dispatch({ type: "SEARCH_SUCCESS", stories: [story] });
-    }; }
-};
-exports.reducer = function (state, action) {
-    var myAction = action;
-    switch (myAction.type) {
-        case "SEARCH":
-            return { stories: state.stories };
-        case "SEARCH_SUCCESS":
-            return { stories: action.stories };
-        default: return defaultState;
-    }
-};
-
+eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar defaultState = {\r\n    stories: []\r\n};\r\nexports.actionCreators = {\r\n    search: function () { return function (dispatch) {\r\n        dispatch({ type: \"SEARCH\" });\r\n        var story = {\r\n            id: \"storyId\"\r\n        };\r\n        dispatch({ type: \"SEARCH_SUCCESS\", stories: [story] });\r\n    }; }\r\n};\r\nexports.reducer = function (state, action) {\r\n    var myAction = action;\r\n    switch (myAction.type) {\r\n        case \"SEARCH\":\r\n            return { stories: state.stories };\r\n        case \"SEARCH_SUCCESS\":\r\n            return { stories: action.stories };\r\n        default: return defaultState;\r\n    }\r\n};\r\n\n\n//# sourceURL=webpack:///./src/state/story.ts?");
 
 /***/ }),
 
@@ -327,7 +177,18 @@ exports.reducer = function (state, action) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = require("express");
+eval("module.exports = require(\"express\");\n\n//# sourceURL=webpack:///external_%22express%22?");
+
+/***/ }),
+
+/***/ "history":
+/*!**************************!*\
+  !*** external "history" ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"history\");\n\n//# sourceURL=webpack:///external_%22history%22?");
 
 /***/ }),
 
@@ -338,7 +199,7 @@ module.exports = require("express");
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = require("path");
+eval("module.exports = require(\"path\");\n\n//# sourceURL=webpack:///external_%22path%22?");
 
 /***/ }),
 
@@ -349,7 +210,7 @@ module.exports = require("path");
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = require("react");
+eval("module.exports = require(\"react\");\n\n//# sourceURL=webpack:///external_%22react%22?");
 
 /***/ }),
 
@@ -360,7 +221,7 @@ module.exports = require("react");
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = require("react-dom/server");
+eval("module.exports = require(\"react-dom/server\");\n\n//# sourceURL=webpack:///external_%22react-dom/server%22?");
 
 /***/ }),
 
@@ -371,7 +232,7 @@ module.exports = require("react-dom/server");
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = require("react-redux");
+eval("module.exports = require(\"react-redux\");\n\n//# sourceURL=webpack:///external_%22react-redux%22?");
 
 /***/ }),
 
@@ -382,7 +243,18 @@ module.exports = require("react-redux");
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = require("react-router-dom");
+eval("module.exports = require(\"react-router-dom\");\n\n//# sourceURL=webpack:///external_%22react-router-dom%22?");
+
+/***/ }),
+
+/***/ "react-router-redux":
+/*!*************************************!*\
+  !*** external "react-router-redux" ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"react-router-redux\");\n\n//# sourceURL=webpack:///external_%22react-router-redux%22?");
 
 /***/ }),
 
@@ -393,9 +265,19 @@ module.exports = require("react-router-dom");
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = require("redux");
+eval("module.exports = require(\"redux\");\n\n//# sourceURL=webpack:///external_%22redux%22?");
+
+/***/ }),
+
+/***/ "redux-thunk":
+/*!******************************!*\
+  !*** external "redux-thunk" ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"redux-thunk\");\n\n//# sourceURL=webpack:///external_%22redux-thunk%22?");
 
 /***/ })
 
 /******/ });
-//# sourceMappingURL=index.js.map

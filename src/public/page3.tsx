@@ -1,6 +1,7 @@
 import * as React from "react";
 import {actionCreators, State} from "../state/story"
 import { connect } from "react-redux";
+import { ApplicationState } from "../state/store";
 
 type Props = typeof actionCreators
     & State;
@@ -15,4 +16,4 @@ class Page3 extends React.Component<Props>{
     }
 }
 
-export default connect((state:State)=>state, actionCreators)(Page3);
+export default connect((state:ApplicationState)=>state.story, actionCreators)(Page3);

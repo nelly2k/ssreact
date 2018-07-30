@@ -32,7 +32,6 @@ const serverConfig = {
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".json"]
 },
-  devtool: "source-map",
   module: {
     rules: [ts,js, sourceMap]
   },
