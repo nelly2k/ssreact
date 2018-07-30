@@ -42,6 +42,7 @@
     "react-redux": "^5.0.7",
     "react-router-redux": "^4.0.8",
     "redux": "^4.0.0",
+    "redux-devtools-extension": "^2.13.5",
     "redux-thunk": "^2.3.0",
     "source-map-loader": "^0.2.3",
     "start-server-webpack-plugin": "^2.2.5",

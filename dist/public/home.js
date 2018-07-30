@@ -28532,6 +28532,38 @@ if (false) {} else {
 
 /***/ }),
 
+/***/ "./node_modules/redux-devtools-extension/index.js":
+/*!********************************************************!*\
+  !*** ./node_modules/redux-devtools-extension/index.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var compose = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js").compose;
+
+exports.__esModule = true;
+exports.composeWithDevTools = (
+  typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ :
+    function() {
+      if (arguments.length === 0) return undefined;
+      if (typeof arguments[0] === 'object') return compose;
+      return compose.apply(null, arguments);
+    }
+);
+
+exports.devToolsEnhancer = (
+  typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION__ ?
+    window.__REDUX_DEVTOOLS_EXTENSION__ :
+    function() { return function(noop) { return noop; } }
+);
+
+
+/***/ }),
+
 /***/ "./node_modules/redux-thunk/es/index.js":
 /*!**********************************************!*\
   !*** ./node_modules/redux-thunk/es/index.js ***!
@@ -29632,6 +29664,10 @@ var Page3 = /** @class */ (function (_super) {
     function Page3() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    Page3.prototype.componentWillMount = function () {
+        console.log("mounted");
+        console.log("props " + this.props.stories.length);
+    };
     Page3.prototype.render = function () {
         return React.createElement("div", null,
             React.createElement("h3", null, "I'm page 3"),
@@ -29762,15 +29798,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var redux_thunk_1 = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/es/index.js");
 var react_router_redux_1 = __webpack_require__(/*! react-router-redux */ "./node_modules/react-router-redux/lib/index.js");
 var store_1 = __webpack_require__(/*! ../state/store */ "./src/state/store.tsx");
+// import { createStore, compose, applyMiddleware, ReducersMapObject, combineReducers, Store,StoreEnhancerStoreCreator, StoreEnhancer } from 'redux'
 var redux_1 = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+var redux_devtools_extension_1 = __webpack_require__(/*! redux-devtools-extension */ "./node_modules/redux-devtools-extension/index.js");
 function configureStore(history, initialState) {
-    // const windowIfDefined = typeof window === 'undefined' ? null : window as any;
+    //    const windowIfDefined = typeof window === 'undefined' ? null : window as any;
     // If devTools is installed, connect to it
-    // const devToolsExtension = windowIfDefined && windowIfDefined.__REDUX_DEVTOOLS_EXTENSION__ as () => StoreEnhancer;
-    var createStoreWithMiddleware = redux_1.compose(redux_1.applyMiddleware(redux_thunk_1.default, react_router_redux_1.routerMiddleware(history)))(redux_1.createStore);
+    var middlewares = [redux_thunk_1.default, react_router_redux_1.routerMiddleware(history)];
+    var middlewareEnhancer = redux_1.applyMiddleware.apply(void 0, middlewares);
+    var enhancers = [middlewareEnhancer];
+    var composedEnhancers = redux_devtools_extension_1.composeWithDevTools.apply(void 0, enhancers);
+    //    const devToolsExtension = windowIfDefined && windowIfDefined.__REDUX_DEVTOOLS_EXTENSION__ as () => StoreEnhancer;
+    //   const createStoreWithMiddleware = compose(
+    //       applyMiddleware(thunk, routerMiddleware(history)),
+    //       devToolsExtension() 
+    //     )(createStore);
     // Combine all reducers and instantiate the app-wide store instance
     var allReducers = buildRootReducer(store_1.reducers);
-    var store = createStoreWithMiddleware(allReducers, initialState);
+    //   const store = createStoreWithMiddleware(allReducers, initialState) as Store<ApplicationState>;
+    var store = redux_1.createStore(allReducers, initialState, composedEnhancers);
     return store;
 }
 exports.configureStore = configureStore;

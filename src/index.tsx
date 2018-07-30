@@ -8,7 +8,9 @@ import { StaticRouterContext } from 'react-router';
 import { configureStore } from './state/configureStore';
 import createMemoryHistory from 'history/createMemoryHistory';
 import { Provider } from 'react-redux';
-import {StoryRepo} from "./repo/story.repo";
+// import {StoryRepo} from "./repo/story.repo";
+import { Story } from './model/story';
+import { ApplicationState } from './state/store';
 
 const app: Express.Application = Express();
 
@@ -18,14 +20,16 @@ app.get('/*', async (req, res) => {
   const name = 'Marvelous Wololo1'
   const context: StaticRouterContext = {};
 
-  let stories = [];
+  // let stories = [];
+  // if (req.url == "/page3"){
+  //   stories = await StoryRepo.GetStories();
+  //   console.log(`stories: ${stories.length}`)
+  // }
+  var story1 = {id: 'st1', title: 'story1'} as Story;
+  const store = configureStore(createMemoryHistory(),{story:{stories:[story1]}} as ApplicationState);
   if (req.url == "/page3"){
-    stories = await StoryRepo.GetStories();
-    console.log(`stories: ${stories.length}`)
+   console.log(store.getState());
   }
-  
-  const store = configureStore(createMemoryHistory(),{story:{stories:stories}});
-   
   const component = ReactDOMServer.renderToString(
     <Router location={req.url} context={context}>
       <Provider store={store}>
