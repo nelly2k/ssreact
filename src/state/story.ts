@@ -1,5 +1,6 @@
 export type Story={
     id:string;
+    title:string;
 }
 export interface State{
     stories:Story[]
@@ -21,13 +22,18 @@ const defaultState:State = {
 
 type KnownActions = SearchAction | SearchActionSuccess;
 
+const get =async <T> (url:string): Promise<T> =>{
+    const task = fetch(url);
+    var response = await task;
+    return response.json() as Promise<T>;
+}
+
+
 export const actionCreators = {
-    search: ():  AppThunkAction <KnownActions>=> (dispatch) => {
+    search: ():  AppThunkAction <KnownActions>=> async (dispatch) => {
         dispatch({type: "SEARCH"});
-        var story:Story = {
-            id: "storyId"
-        }; 
-        dispatch({type: "SEARCH_SUCCESS", stories: [story]});
+        var stories = await get<Story[]>("https://localhost:9000/api/Stories");
+        dispatch({type: "SEARCH_SUCCESS", stories: stories});
     }
 }
 

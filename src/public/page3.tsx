@@ -10,7 +10,7 @@ class Page3 extends React.Component<Props>{
         return <div><h3>I'm page 3</h3>
         <button onClick={this.props.search}>Search</button>
         <ul>
-            {this.props.stories && this.props.stories.map(x=><li>{x.id}</li>)}
+            {this.props.stories && this.props.stories.map(x=><li key={x.id}>{x.title}</li>)}
             </ul>
         </div>
     }

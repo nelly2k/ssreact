@@ -15,6 +15,7 @@ interface IProps{
 export class Hello extends React.Component<IProps>{
   
   store = configureStore(createMemoryHistory(),{story:{stories:[]}});
+  
   render(){
     return <div>
     <h1>Hello, {this.props.name}!</h1>

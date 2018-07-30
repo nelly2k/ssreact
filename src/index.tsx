@@ -5,15 +5,20 @@ import * as ReactDOMServer from 'react-dom/server'
 import { Hello } from './public/hello'
 import { StaticRouter as Router } from 'react-router-dom';
 import { StaticRouterContext } from 'react-router';
+import * as StoryModule from "./state/story";
 
 const app: Express.Application = Express();
 
 app.use('/static', Express.static(path.resolve(__dirname, 'public')))
 
-app.get('/*', (req, res) => {
+app.get('/*', async (req, res) => {
   const name = 'Marvelous Wololo1'
   const context: StaticRouterContext = {};
 
+  if (req.url == "/page3"){
+    await StoryModule.actionCreators.search();
+  }
+  console.log(`Url: ${req.url}`);
   const component = ReactDOMServer.renderToString(
     <Router location={req.url} context={context}><Hello name={name} /></Router>
   )
